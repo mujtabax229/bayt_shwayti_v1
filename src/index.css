@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+    background-color: #faf6f1;
+    color: #3d2e1c;
+    direction: rtl;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f0e6d3;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #b17d37;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #97642b;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-brand-600 text-white font-cairo font-bold py-3 px-8 rounded-xl
+           hover:bg-brand-700 active:bg-brand-800
+           transition-all duration-300 ease-out
+           hover:shadow-lg hover:shadow-brand-600/30
+           active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply bg-earth-800 text-cream-100 font-cairo font-bold py-3 px-8 rounded-xl
+           hover:bg-earth-900 active:bg-earth-900
+           transition-all duration-300 ease-out
+           hover:shadow-lg hover:shadow-earth-800/30
+           active:scale-95;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 ease-out
+           hover:shadow-2xl hover:shadow-earth-400/20
+           hover:-translate-y-1;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-cairo font-extrabold text-earth-800;
+  }
+
+  .input-field {
+    @apply w-full bg-white border-2 border-earth-200 rounded-xl px-4 py-3
+           font-cairo text-earth-900 placeholder-earth-400
+           focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20
+           focus:outline-none transition-all duration-300;
+  }
+
+  .glass-effect {
+    @apply bg-white/80 backdrop-blur-md;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .text-shadow-sm {
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .bg-gradient-earth {
+    background: linear-gradient(135deg, #3d2e1c 0%, #553622 50%, #7a4d25 100%);
+  }
+
+  .bg-gradient-warm {
+    background: linear-gradient(135deg, #fdecd4 0%, #fad5a8 50%, #f6b671 100%);
+  }
+
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
+}
