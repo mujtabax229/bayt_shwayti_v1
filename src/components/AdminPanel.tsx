@@ -301,7 +301,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
               {activeTab === 'products' && (
                 <div>
                   <button
-                    onClick={resetProductForm}
+                    onClick={() => setShowProductForm(true)}
                     className="btn-primary flex items-center gap-2 mb-4 text-sm py-2 px-4"
                   >
                     <Plus size={16} />
@@ -396,7 +396,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
               {activeTab === 'reviews' && (
                 <div>
                   <button
-                    onClick={resetReviewForm}
+                    onClick={() => setShowReviewForm(true)}
                     className="btn-primary flex items-center gap-2 mb-4 text-sm py-2 px-4"
                   >
                     <Plus size={16} />
