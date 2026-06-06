@@ -57,7 +57,7 @@ export default function Reviews() {
             </div>
           ))}
         </div>
-
+const [showForm, setShowForm] = useState(false);
         {reviews.length === 0 && (
           <div className="text-center py-8">
             <p className="font-cairo text-cream-400 text-lg">ماكو آراء بعد.. كون أول من يقيم!</p>
