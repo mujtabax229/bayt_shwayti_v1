@@ -324,7 +324,13 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
                       <div className="grid grid-cols-2 gap-3">
                         <div>
                           <label className="font-cairo text-sm text-earth-600 mb-1 block">السعر (د.ع)</label>
-                          <input type="number" value={pPrice} onChange={e => setPPrice(Number(e.target.value))} className="input-field" />
+                        <input
+  type="number"
+  value={pPrice === 0 ? '' : pPrice}
+  onChange={e => setPPrice(e.target.value === '' ? 0 : Number(e.target.value))}
+  className="input-field"
+  placeholder="0"
+/>
                         </div>
                         <div>
                           <label className="font-cairo text-sm text-earth-600 mb-1 block">الترتيب</label>
@@ -332,8 +338,22 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
                         </div>
                       </div>
                       <div>
-                        <label className="font-cairo text-sm text-earth-600 mb-1 block">رابط الصورة</label>
-                        <input value={pImage} onChange={e => setPImage(e.target.value)} className="input-field" dir="ltr" placeholder="https://..." />
+                        <label className="font-cairo text-sm text-earth-600 mb-1 block">الصورة</label>
+<div className="flex gap-2">
+  <input value={pImage} onChange={e => setPImage(e.target.value)} className="input-field" dir="ltr" placeholder="https://..." />
+  <label className="btn-primary text-sm py-2 px-3 cursor-pointer shrink-0">
+    📷
+    <input type="file" accept="image/*" className="hidden" onChange={async e => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const { data, error } = await supabase.storage.from('product-images').upload(`${Date.now()}-${file.name}`, file);
+      if (!error && data) {
+        const { data: url } = supabase.storage.from('product-images').getPublicUrl(data.path);
+        setPImage(url.publicUrl);
+      }
+    }} />
+  </label>
+</div>
                       </div>
                       <div className="grid grid-cols-2 gap-3">
                         <div>
@@ -487,15 +507,19 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
                     </div>
                     <div>
                       <label className="font-cairo text-sm text-earth-600 mb-1 block">رقم الواتساب</label>
-                      <input
-                        value={editSettings.whatsapp_number || ''}
-                        onChange={e => setEditSettings(prev => ({ ...prev, whatsapp_number: e.target.value }))}
-                        className="input-field"
-                        dir="ltr"
-                        placeholder="+964XXXXXXXXXX"
-                      />
-                    </div>
-                    <div>
+<div className="flex gap-2" dir="ltr">
+  <span className="bg-earth-100 border-2 border-earth-200 rounded-xl px-3 flex items-center font-cairo text-earth-700 shrink-0">+964</span>
+  <input
+    value={(editSettings.whatsapp_number || '').replace('+964', '')}
+    onChange={e => {
+      const digits = e.target.value.replace(/\D/g, '');
+      setEditSettings(prev => ({ ...prev, whatsapp_number: '+964' + digits }));
+    }}
+    className="input-field"
+    placeholder="7XXXXXXXX"
+    maxLength={10}
+  />
+</div>
                       <label className="font-cairo text-sm text-earth-600 mb-1 block">يوزر الانستغرام</label>
                       <input
                         value={editSettings.instagram_username || ''}
