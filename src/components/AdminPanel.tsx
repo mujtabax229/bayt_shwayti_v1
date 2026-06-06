@@ -268,7 +268,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
                 <p className="font-cairo text-red-500 text-sm text-center mt-3">{message}</p>
               )}
               <p className="font-tajawal text-earth-400 text-xs text-center mt-4">
-                كلمة المرور الافتراضية: admin123
+                كلمة المرور الافتراضية: ********
               </p>
             </div>
           </div>
