@@ -1,10 +1,27 @@
 import { useState } from 'react';
-import { supabase } from '../lib/supabase';
 import { Star, Quote } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 import { useApp } from '../context/AppContext';
 
 export default function Reviews() {
-  const { reviews } = useApp();
+  const { reviews, refreshData } = useApp();
+  const [showForm, setShowForm] = useState(false);
+  const [rName, setRName] = useState('');
+  const [rComment, setRComment] = useState('');
+  const [rRating, setRRating] = useState(5);
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async () => {
+    if (!rName || !rComment) return;
+    setSubmitting(true);
+    await supabase.from('reviews').insert([{ name: rName, comment: rComment, rating: rRating }]);
+    setRName('');
+    setRComment('');
+    setRRating(5);
+    setShowForm(false);
+    setSubmitting(false);
+    await refreshData();
+  };
 
   return (
     <section id="reviews" className="py-16 sm:py-24 bg-gradient-earth relative overflow-hidden">
@@ -32,11 +49,9 @@ export default function Reviews() {
               style={{ animationDelay: `${index * 0.15}s` }}
             >
               <Quote className="text-brand-400/40 mb-3" size={28} />
-
               <p className="font-tajawal text-cream-200 text-base leading-relaxed mb-5">
                 {review.comment}
               </p>
-
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-brand-600/30 flex items-center justify-center">
@@ -59,45 +74,62 @@ export default function Reviews() {
             </div>
           ))}
         </div>
-const [showForm, setShowForm] = useState(false);
+
         {reviews.length === 0 && (
           <div className="text-center py-8">
             <p className="font-cairo text-cream-400 text-lg">ماكو آراء بعد.. كون أول من يقيم!</p>
           </div>
         )}
+
         <div className="mt-12 max-w-lg mx-auto">
-  {!showForm ? (
-    <button onClick={() => setShowForm(true)} className="btn-primary mx-auto block">
-      أضف رأيك
-    </button>
-  ) : (
-    <div className="bg-white/10 rounded-2xl p-6 space-y-3">
-      <h4 className="font-cairo font-bold text-cream-100 text-center">شاركنا رأيك</h4>
-      <input id="rv-name" className="input-field" placeholder="اسمك" />
-      <textarea id="rv-comment" className="input-field resize-none h-20" placeholder="رأيك..." />
-      <div className="flex justify-center gap-2">
-        {[1,2,3,4,5].map(n => (
-          <button key={n} id={`star-${n}`} onClick={() => {
-            document.querySelectorAll('[id^=star-]').forEach((el,i) => {
-              (el as HTMLElement).style.opacity = i < n ? '1' : '0.3';
-            });
-            (document.getElementById('rv-rating') as HTMLInputElement).value = String(n);
-          }} className="text-brand-400 text-2xl">★</button>
-        ))}
-      </div>
-      <input type="hidden" id="rv-rating" defaultValue="5" />
-      <button className="btn-primary w-full" onClick={async () => {
-        const name = (document.getElementById('rv-name') as HTMLInputElement).value;
-        const comment = (document.getElementById('rv-comment') as HTMLTextAreaElement).value;
-        const rating = Number((document.getElementById('rv-rating') as HTMLInputElement).value);
-        if (!name || !comment) return;
-        await supabase.from('reviews').insert([{ name, comment, rating }]);
-        setShowForm(false);
-        window.location.reload();
-      }}>إرسال</button>
-    </div>
-  )}
-</div>
+          {!showForm ? (
+            <button onClick={() => setShowForm(true)} className="btn-primary mx-auto block">
+              أضف رأيك
+            </button>
+          ) : (
+            <div className="bg-white/10 rounded-2xl p-6 space-y-3">
+              <h4 className="font-cairo font-bold text-cream-100 text-center">شاركنا رأيك</h4>
+              <input
+                value={rName}
+                onChange={e => setRName(e.target.value)}
+                className="input-field"
+                placeholder="اسمك"
+              />
+              <textarea
+                value={rComment}
+                onChange={e => setRComment(e.target.value)}
+                className="input-field resize-none h-20"
+                placeholder="رأيك..."
+              />
+              <div className="flex justify-center gap-2">
+                {[1, 2, 3, 4, 5].map(n => (
+                  <button
+                    key={n}
+                    onClick={() => setRRating(n)}
+                    className={`text-2xl transition-all ${n <= rRating ? 'text-brand-400' : 'text-earth-600'}`}
+                  >
+                    ★
+                  </button>
+                ))}
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={handleSubmit}
+                  disabled={submitting}
+                  className="btn-primary w-full"
+                >
+                  {submitting ? 'جاري الإرسال...' : 'إرسال'}
+                </button>
+                <button
+                  onClick={() => setShowForm(false)}
+                  className="font-cairo text-cream-300 hover:text-white py-2 px-4 transition-colors"
+                >
+                  إلغاء
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
