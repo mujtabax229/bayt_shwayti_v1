@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { supabase } from '../lib/supabase';
 import { Star, Quote } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
@@ -63,6 +65,39 @@ const [showForm, setShowForm] = useState(false);
             <p className="font-cairo text-cream-400 text-lg">ماكو آراء بعد.. كون أول من يقيم!</p>
           </div>
         )}
+        <div className="mt-12 max-w-lg mx-auto">
+  {!showForm ? (
+    <button onClick={() => setShowForm(true)} className="btn-primary mx-auto block">
+      أضف رأيك
+    </button>
+  ) : (
+    <div className="bg-white/10 rounded-2xl p-6 space-y-3">
+      <h4 className="font-cairo font-bold text-cream-100 text-center">شاركنا رأيك</h4>
+      <input id="rv-name" className="input-field" placeholder="اسمك" />
+      <textarea id="rv-comment" className="input-field resize-none h-20" placeholder="رأيك..." />
+      <div className="flex justify-center gap-2">
+        {[1,2,3,4,5].map(n => (
+          <button key={n} id={`star-${n}`} onClick={() => {
+            document.querySelectorAll('[id^=star-]').forEach((el,i) => {
+              (el as HTMLElement).style.opacity = i < n ? '1' : '0.3';
+            });
+            (document.getElementById('rv-rating') as HTMLInputElement).value = String(n);
+          }} className="text-brand-400 text-2xl">★</button>
+        ))}
+      </div>
+      <input type="hidden" id="rv-rating" defaultValue="5" />
+      <button className="btn-primary w-full" onClick={async () => {
+        const name = (document.getElementById('rv-name') as HTMLInputElement).value;
+        const comment = (document.getElementById('rv-comment') as HTMLTextAreaElement).value;
+        const rating = Number((document.getElementById('rv-rating') as HTMLInputElement).value);
+        if (!name || !comment) return;
+        await supabase.from('reviews').insert([{ name, comment, rating }]);
+        setShowForm(false);
+        window.location.reload();
+      }}>إرسال</button>
+    </div>
+  )}
+</div>
       </div>
     </section>
   );
