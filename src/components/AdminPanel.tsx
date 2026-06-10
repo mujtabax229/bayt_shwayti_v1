@@ -41,6 +41,11 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
     setEditSettings({ ...settings });
   }, [settings]);
 
+const showMessage = (msg: string) => {
+  setMessage(msg);
+  setTimeout(() => setMessage(''), 3000);
+};
+  
  const handleLogin = async () => {
   const { data } = await supabase
     .from('settings')
