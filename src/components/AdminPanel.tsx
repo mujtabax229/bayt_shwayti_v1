@@ -60,11 +60,6 @@ const showMessage = (msg: string) => {
   }
 };
 
-  const showMessage = (msg: string) => {
-    setMessage(msg);
-    setTimeout(() => setMessage(''), 3000);
-  };
-
   const resetProductForm = () => {
     setEditingProduct(null);
     setPName('');
