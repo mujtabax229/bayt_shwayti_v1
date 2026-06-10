@@ -41,13 +41,19 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
     setEditSettings({ ...settings });
   }, [settings]);
 
-  const handleLogin = () => {
-    if (password === 'admin123') {
-      setIsAuthed(true);
-    } else {
-      showMessage('كلمة المرور غلط');
-    }
-  };
+ const handleLogin = async () => {
+  const { data } = await supabase
+    .from('settings')
+    .select('value')
+    .eq('key', 'admin_password')
+    .single();
+  
+  if (data?.value === password) {
+    setIsAuthed(true);
+  } else {
+    showMessage('كلمة المرور غلط');
+  }
+};
 
   const showMessage = (msg: string) => {
     setMessage(msg);
