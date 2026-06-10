@@ -12,7 +12,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-  "homepage": "https://abdulrahman1004.github.io/bayt_shwayti_v1",
+  "homepage": "https://mujtabax229.github.io/shwayti/",
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
     "lucide-react": "^0.344.0",
