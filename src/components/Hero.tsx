@@ -12,7 +12,7 @@ export default function Hero() {
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
         <img
-          src="https://images.pexels.com/photos/461422/pexels-photo-461422.jpeg"
+          src="logo.jpeg"
           alt="أكلات عراقية"
           className="w-full h-full object-cover"
         />
