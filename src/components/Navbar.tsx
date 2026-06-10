@@ -46,8 +46,8 @@ export default function Navbar({ onCartClick, onAdminClick }: NavbarProps) {
             onClick={() => handleNav('#hero')}
             className="flex items-center gap-2 group"
           >
-            <div className="w-10 h-10 rounded-full bg-brand-500 flex items-center justify-center group-hover:bg-brand-400 transition-colors">
-              <span className="text-white font-cairo font-extrabold text-lg">ب</span>
+            <div className="w-10 h-10 rounded-full overflow-hidden shrink-0 ring-2 ring-brand-500/40 group-hover:ring-brand-400 transition-all">
+              <img src="/Screenshot_from_2026-06-10_13-53-13.png" alt="بيت شويطي" className="w-full h-full object-cover" />
             </div>
             <span className="font-cairo font-extrabold text-xl text-cream-100 group-hover:text-brand-400 transition-colors">
               {settings.restaurant_name || 'بيت شويطي'}
