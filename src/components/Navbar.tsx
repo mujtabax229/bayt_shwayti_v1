@@ -47,7 +47,7 @@ export default function Navbar({ onCartClick, onAdminClick }: NavbarProps) {
             className="flex items-center gap-2 group"
           >
             <div className="w-10 h-10 rounded-full overflow-hidden shrink-0 ring-2 ring-brand-500/40 group-hover:ring-brand-400 transition-all">
-              <img src="/Screenshot_from_2026-06-10_13-53-13.png" alt="بيت شويطي" className="w-full h-full object-cover" />
+              <img src="https://pmmqscrgvnjkcuptuplz.supabase.co/storage/v1/object/public/product-images/1781165446211-Screenshot%20from%202026-06-10%2013-53-13.png" alt="بيت شويطي" className="w-full h-full object-cover" />
             </div>
             <span className="font-cairo font-extrabold text-xl text-cream-100 group-hover:text-brand-400 transition-colors">
               {settings.restaurant_name || 'بيت شويطي'}
