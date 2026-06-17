@@ -368,7 +368,7 @@ const showMessage = (msg: string) => {
                             <option>مشويات</option>
                             <option>أكلات عراقية</option>
                             <option>مقبلات</option>
-                            <option>شوربات</option>
+                            <option>شرقي</option>
                             <option>مشروبات</option>
                             <option>حلويات</option>
                           </select>
