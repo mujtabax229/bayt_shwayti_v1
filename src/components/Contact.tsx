@@ -82,7 +82,7 @@ export default function Contact() {
               <span className="font-cairo font-bold text-cream-100">موقعنا على الخريطة</span>
             </div>
             <iframe
-              src={`https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12000!2d${mapLocation.split(',')[1]}!3d${mapLocation.split(',')[0]}!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM!5e0!3e2!4v1700000000000`}
+              src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3389.8924425857144!2d47.1499500749329!3d31.827921974074645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fe7eb0047ef9fad%3A0x78ab5895e099e0b2!2z2YXYt9i52YUg2KjZitiqINi02YjZiti32Yo!5e0!3m2!1sen!2siq!4v1783404981837!5m2!1sen!2siq" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin`}
               width="100%"
               height="100%"
               style={{ border: 0, minHeight: '350px' }}
